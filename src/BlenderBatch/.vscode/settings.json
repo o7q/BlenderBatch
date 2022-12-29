@@ -4,6 +4,9 @@
         "stdbool.h": "c",
         "sstream": "c",
         "render.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "dirent.h": "c",
+        "utils.h": "c",
+        "stdlib.h": "c"
     }
 }

@@ -21,8 +21,7 @@ void jobCreate(char blenderPath[])
     mkdir(jobChunk);
 
     int jobIndex = 0;
-    bool persistent = true;
-    while (persistent)
+    while (1)
     {
         char scriptArgs[2048];
 
