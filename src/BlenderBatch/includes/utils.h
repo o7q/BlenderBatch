@@ -36,6 +36,12 @@ char *fixPath(char path[], char sep)
     return path_fix;
 }
 
+void drawCur()
+{
+    // draw cursor
+    printf(" -> ");
+}
+
 void refresh()
 {
     // clear screen

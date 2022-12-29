@@ -19,11 +19,13 @@ int main(void)
     // if blender is not configured prompt the user to do so
     if ((_access("BlenderBatch\\cfg@blenderPath", 0)) == -1)
     {
-        printf(" Blender Path:\n -> ");
+        printf(" Blender Path:\n");
+        drawCur();
         char blenderPathIn[512];
         fgets(blenderPathIn, sizeof(blenderPathIn), stdin);
         omitNewLine(blenderPathIn);
 
+        // remove user double-quotes and replace them with proper ones (if they didn't use them correctly)
         strcpy(blenderPath, fixPath(blenderPathIn, '"'));
 
         // write blender path config
@@ -60,7 +62,7 @@ int main(void)
             closedir(dir);
         }
 
-        printf(" -> ");
+        drawCur();
 
         char select[64];
         fgets(select, sizeof(select), stdin);

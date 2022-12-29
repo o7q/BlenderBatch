@@ -18,7 +18,8 @@ void jobCreate(char jobName[], char blenderPath[])
     {
         char scriptArgs[1708];
 
-        printf("\n Blend File (type ! to exit):\n -> ");
+        printf("\n Blend File (type ! to exit):\n");
+        drawCur();
         char blendfile[512];
         fgets(blendfile, sizeof(blendfile), stdin);
         omitNewLine(blendfile);
@@ -26,7 +27,8 @@ void jobCreate(char jobName[], char blenderPath[])
         // exit if '!' is typed
         if (blendfile[0] == '!') return;
 
-        printf("\n Render As Sequence? (type y or n):\n -> ");
+        printf("\n Render As Sequence? (type y or n):\n");
+        drawCur();
         char renderMode[512];
         fgets(renderMode, sizeof(renderMode), stdin);
         omitNewLine(renderMode);
@@ -34,12 +36,14 @@ void jobCreate(char jobName[], char blenderPath[])
         if(renderMode[0] == 'y')
         {
             // configure job chunk for sequence
-            printf("\n Start Frame:\n -> ");
+            printf("\n Start Frame:\n");
+            drawCur();
             char sframe[512];
             fgets(sframe, sizeof(sframe), stdin);
             omitNewLine(sframe);
 
-            printf("\n End Frame:\n -> ");
+            printf("\n End Frame:\n");
+            drawCur();
             char eframe[512];
             fgets(eframe, sizeof(eframe), stdin);
             omitNewLine(eframe);
@@ -49,7 +53,8 @@ void jobCreate(char jobName[], char blenderPath[])
         else
         {
             // configure job chunk for single frame
-            printf("\n Frame:\n -> ");
+            printf("\n Frame:\n");
+            drawCur();
             char frame[512];
             fgets(frame, sizeof(frame), stdin);
             omitNewLine(frame);
