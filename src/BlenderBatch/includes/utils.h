@@ -10,6 +10,7 @@ char version[] = "v1.0.0";
 
 char *omitChar(char in[], char charIn)
 {
+    // remove specified character from string
     char *pIndex;
     while ((pIndex = strchr(in, charIn)) != NULL) memmove(pIndex, pIndex + 1, strlen(pIndex));
     return in;
@@ -17,6 +18,7 @@ char *omitChar(char in[], char charIn)
 
 char *omitNewLine(char in[])
 {
+    // remove \n
     char *p = strchr(in, '\n');
     if (p) *p = '\0'; else return NULL;
     return in;
@@ -24,8 +26,10 @@ char *omitNewLine(char in[])
 
 char *fixPath(char path[], char sep)
 {
+    // remove user double-quotes
     omitChar(path, '"'); 
 
+    // add double-quotes around the path
     char *path_fix = (char *) malloc(sizeof(char) * (strlen(path) + 4));
     snprintf(path_fix, strlen(path) + 4, "%c%s%c", sep, path, sep);
 
@@ -34,6 +38,7 @@ char *fixPath(char path[], char sep)
 
 void refresh()
 {
+    // clear screen
     system("cls");
     printf("  ___ _             _         ___       _      _    \n"
            " | _ ) |___ _ _  __| |___ _ _| _ ) __ _| |_ __| |_  \n"
