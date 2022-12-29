@@ -1,29 +1,22 @@
 #pragma once
 
-#include <stdio.h>
-#include <dirent.h>
 #include "../utils.h"
 
-void jobCreate(char blenderPath[])
+void jobCreate(char jobName[], char blenderPath[])
 {
     refresh();
 
-    printf(" Job Name:\n -> ");
-    char jobName[512];
-    fgets(jobName, sizeof(jobName), stdin);
-    omitNewLine(jobName);
-
-    char jobDirectory[1024];
+    char jobDirectory[631];
     sprintf(jobDirectory, "%s%s", "BlenderBatch\\_jobs\\", jobName);
     mkdir(jobDirectory);
-    char jobChunk[2048];
+    char jobChunk[642];
     sprintf(jobChunk, "%s%s", jobDirectory, "\\_jobchunks");
     mkdir(jobChunk);
 
     int jobIndex = 0;
     while (1)
     {
-        char scriptArgs[2048];
+        char scriptArgs[1708];
 
         printf("\n Blend File (! to exit):\n -> ");
         char blendfile[512];
@@ -61,15 +54,15 @@ void jobCreate(char blenderPath[])
             sprintf(scriptArgs, "%s%s%s%s%s%d%s", " -f ", frame, " /e | tee-object 'BlenderBatch\\_jobs\\", jobName, "\\job@log", jobIndex, ".txt'\"");
         }
 
-        char script[4096];
-        sprintf(script, "%s%s%s%s%s", "powershell -command \"", blenderPath, " -b ", fixPath(blendfile, '\''), scriptArgs);
+        char chunk_script[1733];
+        sprintf(chunk_script, "%s%s%s%s%s", "powershell -command \"", blenderPath, " -b ", fixPath(blendfile, '\''), scriptArgs);
 
-        char file[1024];
-        sprintf(file, "%s%s%s%d", "BlenderBatch\\_jobs\\", jobName, "\\_jobchunks\\job@chunk", jobIndex);
+        char chunk_export[662];
+        sprintf(chunk_export, "%s%s%s%d", "BlenderBatch\\_jobs\\", jobName, "\\_jobchunks\\job@chunk", jobIndex);
 
-        FILE* file_ptr = fopen(file, "w");
-        fprintf(file_ptr, script);
-        fclose(file_ptr);
+        FILE *chunk_ptr = fopen(chunk_export, "w");
+        fprintf(chunk_ptr, chunk_script);
+        fclose(chunk_ptr);
 
         jobIndex++;
     }

@@ -1,18 +1,14 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <direct.h>
-#include <dirent.h>
-#include <stdbool.h>
+#include "includes\utils.h"
 #include "includes\processors\wizard.h"
 #include "includes\processors\render.h"
-#include "includes\utils.h"
 
-char blenderPath[512];
+char blenderPath[614];
+
+// NOTE FOR MYSELF: string sizes have 100 added to their minimum overflow limit
 
 int main(void)
 {
-    char titleScript[32];
+    char titleScript[64];
     sprintf(titleScript, "%s%s", "title BlenderBatch ", version);
     system(titleScript);
 
@@ -39,11 +35,11 @@ int main(void)
 
         FILE *blenderPath_read = fopen("BlenderBatch\\cfg@blenderPath", "r");
 
-        char buffer[1024];
+        char buffer[614];
         if (fgets(buffer, sizeof(buffer), blenderPath_read) != NULL) strcpy(blenderPath, buffer);
         fclose(blenderPath_read);
 
-        printf(" Select a job by typing its name (create one by typing !, delete one by typing @<JOBNAME>)\n");
+        printf(" Select a render job by typing its name (create one by typing !<JOBNAME>, delete one by typing @<JOBNAME>)\n");
 
         // display created jobs
         DIR *dir = opendir("BlenderBatch\\_jobs");
@@ -61,18 +57,21 @@ int main(void)
 
         printf(" -> ");
 
-        char select[512];
+        char select[64];
         fgets(select, sizeof(select), stdin);
         omitNewLine(select);
 
-        if (select[0] == '!') jobCreate(blenderPath);
+        if (select[0] == '!')
+        {
+            omitChar(select, '!');     
+            jobCreate(select, blenderPath);
+        }
         else if (select[0] == '@')
         {
-            char *pIndex;
-            while ((pIndex = strchr(select, '@')) != NULL) memmove(pIndex, pIndex + 1, strlen(pIndex));
-            char jobDel[1024];
-            sprintf(jobDel, "%s%s%s", "rmdir \"BlenderBatch\\_jobs\\", select, "\" /s /q 2> nul");
-            system(jobDel);
+            omitChar(select, '@'); 
+            char jobPurge[204];
+            sprintf(jobPurge, "%s%s%s", "rmdir \"BlenderBatch\\_jobs\\", select, "\" /s /q 2> nul");
+            system(jobPurge);
         }
         else jobRender(select);
     }

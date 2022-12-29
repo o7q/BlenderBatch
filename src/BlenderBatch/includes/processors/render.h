@@ -1,14 +1,13 @@
 #pragma once
 
-#include <stdio.h>
-#include <dirent.h>
+#include "../utils.h"
 
 void jobRender(char job[])
 {
     refresh();
 
     // initialize render jobs
-    char jobPath[1024];
+    char jobPath[512];
     sprintf(jobPath, "%s%s%s", "BlenderBatch\\_jobs\\", job, "\\_jobchunks\\");
     DIR *jobDir = opendir(jobPath);
     if (jobDir)
@@ -25,12 +24,12 @@ void jobRender(char job[])
         int chunkIndex = 0;
         for (int i = 0; i < jobIndex; i++)
         {
-            char jobChunk[2048];
+            char jobChunk[632];
             sprintf(jobChunk, "%s%s%d", jobPath, "\\job@chunk", chunkIndex);
 
             FILE *blenderPath_read = fopen(jobChunk, "r");
 
-            char chunkBuffer[1024];
+            char chunkBuffer[512];
             char chunkScript[512];
             if (fgets(chunkBuffer, sizeof(chunkBuffer), blenderPath_read) != NULL) strcpy(chunkScript, chunkBuffer);
             fclose(blenderPath_read);
@@ -45,6 +44,6 @@ void jobRender(char job[])
         closedir(jobDir);
     }
 
-    printf("\n\n Render Finished!\n ");
+    printf("\n\n Render Finished! (any errors, if any, have been displayed)\n ");
     system("pause");
 }

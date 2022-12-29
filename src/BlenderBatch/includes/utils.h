@@ -3,18 +3,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <dirent.h>
 
 char version[] = "v1.0.0";
 
-char *fixPath(char path[], char sep)
+char *omitChar(char in[], char charIn)
 {
     char *pIndex;
-    while ((pIndex = strchr(path, '"')) != NULL) memmove(pIndex, pIndex + 1, strlen(pIndex));
-
-    char *path_fix = (char*) malloc(sizeof(char) * (strlen(path) + 4));
-    snprintf(path_fix, strlen(path) + 4, "%c%s%c", sep, path, sep);
-
-    return path_fix;
+    while ((pIndex = strchr(in, charIn)) != NULL) memmove(pIndex, pIndex + 1, strlen(pIndex));
+    return in;
 }
 
 char *omitNewLine(char in[])
@@ -22,6 +19,16 @@ char *omitNewLine(char in[])
     char *p = strchr(in, '\n');
     if (p) *p = '\0'; else return NULL;
     return in;
+}
+
+char *fixPath(char path[], char sep)
+{
+    omitChar(path, '"'); 
+
+    char *path_fix = (char *) malloc(sizeof(char) * (strlen(path) + 4));
+    snprintf(path_fix, strlen(path) + 4, "%c%s%c", sep, path, sep);
+
+    return path_fix;
 }
 
 void refresh()
