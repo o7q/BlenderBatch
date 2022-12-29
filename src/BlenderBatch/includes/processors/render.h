@@ -12,6 +12,7 @@ void jobRender(char job[])
     DIR *jobDir = opendir(jobPath);
     if (jobDir)
     {
+        // count the amount of chunks
         int jobIndex = 0;
         struct dirent *jobEntry;
         while ((jobEntry = readdir(jobDir)) != NULL)
@@ -29,6 +30,7 @@ void jobRender(char job[])
 
             FILE *blenderPath_read = fopen(jobChunk, "r");
 
+            // read job chunk into buffer
             char chunkBuffer[512];
             char chunkScript[512];
             if (fgets(chunkBuffer, sizeof(chunkBuffer), blenderPath_read) != NULL) strcpy(chunkScript, chunkBuffer);

@@ -18,20 +18,22 @@ void jobCreate(char jobName[], char blenderPath[])
     {
         char scriptArgs[1708];
 
-        printf("\n Blend File (! to exit):\n -> ");
+        printf("\n Blend File (type ! to exit):\n -> ");
         char blendfile[512];
         fgets(blendfile, sizeof(blendfile), stdin);
         omitNewLine(blendfile);
 
+        // exit if '!' is typed
         if (blendfile[0] == '!') return;
 
-        printf("\n Render As Sequence? (y or n):\n -> ");
+        printf("\n Render As Sequence? (type y or n):\n -> ");
         char renderMode[512];
         fgets(renderMode, sizeof(renderMode), stdin);
         omitNewLine(renderMode);
 
         if(renderMode[0] == 'y')
         {
+            // configure job chunk for sequence
             printf("\n Start Frame:\n -> ");
             char sframe[512];
             fgets(sframe, sizeof(sframe), stdin);
@@ -46,6 +48,7 @@ void jobCreate(char jobName[], char blenderPath[])
         }
         else
         {
+            // configure job chunk for single frame
             printf("\n Frame:\n -> ");
             char frame[512];
             fgets(frame, sizeof(frame), stdin);
@@ -54,12 +57,15 @@ void jobCreate(char jobName[], char blenderPath[])
             sprintf(scriptArgs, "%s%s%s%s%s%d%s", " -f ", frame, " /e | tee-object 'BlenderBatch\\_jobs\\", jobName, "\\job@log", jobIndex, ".txt'\"");
         }
 
+        // configure job chunk content
         char chunk_script[1733];
         sprintf(chunk_script, "%s%s%s%s%s", "powershell -command \"", blenderPath, " -b ", fixPath(blendfile, '\''), scriptArgs);
 
+        // configure job chunk export
         char chunk_export[662];
         sprintf(chunk_export, "%s%s%s%d", "BlenderBatch\\_jobs\\", jobName, "\\_jobchunks\\job@chunk", jobIndex);
 
+        // write job chunk
         FILE *chunk_ptr = fopen(chunk_export, "w");
         fprintf(chunk_ptr, chunk_script);
         fclose(chunk_ptr);

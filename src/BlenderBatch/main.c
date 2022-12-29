@@ -2,9 +2,8 @@
 #include "includes\processors\wizard.h"
 #include "includes\processors\render.h"
 
-char blenderPath[614];
-
 // NOTE FOR MYSELF: string sizes have 100 added to their minimum overflow size
+char blenderPath[614];
 
 int main(void)
 {
@@ -14,8 +13,10 @@ int main(void)
 
     refresh();
 
+    // create root directories
     mkdir("BlenderBatch");
     mkdir("BlenderBatch\\_jobs");
+    // if blender is not configured prompt the user to do so
     if ((_access("BlenderBatch\\cfg@blenderPath", 0)) == -1)
     {
         printf(" Blender Path:\n -> ");
@@ -25,13 +26,14 @@ int main(void)
 
         strcpy(blenderPath, fixPath(blenderPathIn, '"'));
 
+        // write blender path config
         FILE *blenderPath_write = fopen("BlenderBatch\\cfg@blenderPath", "w");
         fprintf(blenderPath_write, blenderPath);
         fclose(blenderPath_write);
     }
 
+    // job interface
     bool persistent = true;
-
     while(persistent)
     {
         refresh();
@@ -66,18 +68,20 @@ int main(void)
 
         if (select[0] == '!')
         {
+            // create new job
             omitChar(select, '!');     
             jobCreate(select, blenderPath);
         }
         else if (select[0] == '@')
         {
+            // purge job
             omitChar(select, '@'); 
             char jobPurge[204];
             sprintf(jobPurge, "%s%s%s", "rmdir \"BlenderBatch\\_jobs\\", select, "\" /s /q 2> nul");
             system(jobPurge);
         }
-        else if (select[0] == '#') persistent = false;
-        else jobRender(select);
+        else if (select[0] == '#') /* exit program */ persistent = false;
+        else /* render job */ jobRender(select);
     }
 
     return 0;
