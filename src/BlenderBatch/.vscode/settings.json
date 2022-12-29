@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "direct.h": "c",
+        "stdbool.h": "c",
+        "sstream": "c",
+        "render.h": "c"
+    }
+}
