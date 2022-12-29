@@ -3,6 +3,7 @@
         "direct.h": "c",
         "stdbool.h": "c",
         "sstream": "c",
-        "render.h": "c"
+        "render.h": "c",
+        "string.h": "c"
     }
 }

@@ -4,8 +4,10 @@
 #include <dirent.h>
 #include "../utils.h"
 
-void jobWizard(char blenderPath[])
+void jobCreate(char blenderPath[])
 {
+    refresh();
+
     printf(" Job Name:\n -> ");
     char jobName[512];
     fgets(jobName, sizeof(jobName), stdin);
@@ -22,26 +24,49 @@ void jobWizard(char blenderPath[])
     bool persistent = true;
     while (persistent)
     {
-        printf(" Blend File:\n -> ");
+        char scriptArgs[2048];
+
+        printf("\n Blend File (! to exit):\n -> ");
         char blendfile[512];
         fgets(blendfile, sizeof(blendfile), stdin);
         omitNewLine(blendfile);
 
-        printf(" Start Frame:\n -> ");
-        char sframe[512];
-        fgets(sframe, sizeof(sframe), stdin);
-        omitNewLine(sframe);
+        if (blendfile[0] == '!') return;
 
-        printf(" End Frame:\n -> ");
-        char eframe[512];
-        fgets(eframe, sizeof(eframe), stdin);
-        omitNewLine(eframe);
+        printf("\n Render As Sequence? (y or n):\n -> ");
+        char renderMode[512];
+        fgets(renderMode, sizeof(renderMode), stdin);
+        omitNewLine(renderMode);
+
+        if(renderMode[0] == 'y')
+        {
+            printf("\n Start Frame:\n -> ");
+            char sframe[512];
+            fgets(sframe, sizeof(sframe), stdin);
+            omitNewLine(sframe);
+
+            printf("\n End Frame:\n -> ");
+            char eframe[512];
+            fgets(eframe, sizeof(eframe), stdin);
+            omitNewLine(eframe);
+
+            sprintf(scriptArgs, "%s%s%s%s%s%s%s%d%s", " -s ", sframe, " -e ", eframe, " -a /e | tee-object 'BlenderBatch\\_jobs\\", jobName, "\\job@log", jobIndex, ".txt'\"");
+        }
+        else
+        {
+            printf("\n Frame:\n -> ");
+            char frame[512];
+            fgets(frame, sizeof(frame), stdin);
+            omitNewLine(frame);
+
+            sprintf(scriptArgs, "%s%s%s%s%s%d%s", " -f ", frame, " /e | tee-object 'BlenderBatch\\_jobs\\", jobName, "\\job@log", jobIndex, ".txt'\"");
+        }
+
+        char script[4096];
+        sprintf(script, "%s%s%s%s%s", "powershell -command \"", blenderPath, " -b ", fixPath(blendfile, '\''), scriptArgs);
 
         char file[1024];
         sprintf(file, "%s%s%s%d", "BlenderBatch\\_jobs\\", jobName, "\\_jobchunks\\job@chunk", jobIndex);
-
-        char script[2048];
-        sprintf(script, "%s%s%s%s%s%s%s%s%s%s%s%d%s", "powershell -command \"", blenderPath, " -b ", fixPath(blendfile, '\''), " -s ", sframe, " -e ", eframe, " -a /e | tee-object 'BlenderBatch\\_jobs\\", jobName, "\\job@log", jobIndex, ".txt'\"");
 
         FILE* file_ptr = fopen(file, "w");
         fprintf(file_ptr, script);

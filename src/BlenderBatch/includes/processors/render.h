@@ -3,8 +3,10 @@
 #include <stdio.h>
 #include <dirent.h>
 
-void renderJob(char job[])
+void jobRender(char job[])
 {
+    refresh();
+
     // initialize render jobs
     char jobPath[1024];
     sprintf(jobPath, "%s%s%s", "BlenderBatch\\_jobs\\", job, "\\_jobchunks\\");
@@ -33,7 +35,7 @@ void renderJob(char job[])
             if (fgets(chunkBuffer, sizeof(chunkBuffer), blenderPath_read) != NULL) strcpy(chunkScript, chunkBuffer);
             fclose(blenderPath_read);
 
-            printf(chunkScript);
+            printf(" STARTING RENDER OF CHUNK #%d\n\n", chunkIndex);
 
             system(chunkScript);
 
@@ -43,6 +45,6 @@ void renderJob(char job[])
         closedir(jobDir);
     }
 
-    printf("\n Render Finished!\n ");
+    printf("\n\n Render Finished!\n ");
     system("pause");
 }
