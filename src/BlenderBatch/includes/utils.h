@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <dirent.h>
+#include <stdbool.h>
 
 char version[] = "v1.0.0";
 

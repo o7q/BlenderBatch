@@ -4,7 +4,7 @@
 
 char blenderPath[614];
 
-// NOTE FOR MYSELF: string sizes have 100 added to their minimum overflow limit
+// NOTE FOR MYSELF: string sizes have 100 added to their minimum overflow size
 
 int main(void)
 {
@@ -20,7 +20,8 @@ int main(void)
     {
         printf(" Blender Path:\n -> ");
         char blenderPathIn[512];
-        gets(blenderPathIn);
+        fgets(blenderPathIn, sizeof(blenderPathIn), stdin);
+        omitNewLine(blenderPathIn);
 
         strcpy(blenderPath, fixPath(blenderPathIn, '"'));
 
@@ -29,7 +30,9 @@ int main(void)
         fclose(blenderPath_write);
     }
 
-    while(1)
+    bool persistent = true;
+
+    while(persistent)
     {
         refresh();
 
@@ -39,7 +42,7 @@ int main(void)
         if (fgets(buffer, sizeof(buffer), blenderPath_read) != NULL) strcpy(blenderPath, buffer);
         fclose(blenderPath_read);
 
-        printf(" Select a render job by typing its name (create one by typing !<JOBNAME>, delete one by typing @<JOBNAME>)\n");
+        printf(" Select a render job by typing its name\n - Create one by typing !<JOBNAME>\n - Delete one by typing @<JOBNAME>\n - Type # to exit\n\n");
 
         // display created jobs
         DIR *dir = opendir("BlenderBatch\\_jobs");
@@ -73,6 +76,7 @@ int main(void)
             sprintf(jobPurge, "%s%s%s", "rmdir \"BlenderBatch\\_jobs\\", select, "\" /s /q 2> nul");
             system(jobPurge);
         }
+        else if (select[0] == '#') persistent = false;
         else jobRender(select);
     }
 

@@ -34,7 +34,7 @@ void jobRender(char job[])
             if (fgets(chunkBuffer, sizeof(chunkBuffer), blenderPath_read) != NULL) strcpy(chunkScript, chunkBuffer);
             fclose(blenderPath_read);
 
-            printf(" STARTING RENDER OF CHUNK #%d\n\n", chunkIndex);
+            printf(" STARTING RENDER OF JOB CHUNK #%d\n\n", chunkIndex);
 
             system(chunkScript);
 
@@ -44,6 +44,6 @@ void jobRender(char job[])
         closedir(jobDir);
     }
 
-    printf("\n\n Render Finished! (any errors, if any, have been displayed)\n ");
+    printf("\n\n Render Finished! (all errors, if any, have been displayed)\n ");
     system("pause");
 }
