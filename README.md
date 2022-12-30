@@ -1,4 +1,4 @@
-<img src="assets/images/logo.png" style="width: 30%;">
+<img src="assets/images/banner.png" style="width: 75%;">
 
 # [<b>>> Download Latest</b>](https://github.com/o7q/BlenderBatch/releases/download/v1.0.0/BlenderBatch.exe)
 ### Welcome! BlenderBatch is a simple, lightweight,  command-line based tool that renders and manages batch renders for Blender.
