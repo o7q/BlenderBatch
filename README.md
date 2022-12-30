@@ -1,24 +1,22 @@
-<!-- <img src="assets/images/banner.png">
+<img src="assets/images/logo.png" style="width: 30%;">
 
-# [<b>>> Download Latest</b>](https://github.com/o7q/MediaDownloader/releases/download/v3.8.2.0/MediaDownloader.v3.8.2.0.zip) -->
-### Welcome! BlenderBatch is a simple, command-line based tool that renders and manages batch renders for Blender.
-
-<!-- ---
-
-<img src="assets/images/program.png"> -->
+# [<b>>> Download Latest</b>]()
+### Welcome! BlenderBatch is a simple, lightweight,  command-line based tool that renders and manages batch renders for Blender.
 
 ---
 
 # Overview
 BlenderBatch queues up user-configured render jobs that can be executed with ease.
 
-<!-- ---
+---
 
-# Usage
-
-<br>
-
-## **Interface** -->
+## **Interface**
+- **Blender Path** Specify your fixed Blender path
+- **Jobs**
+    - **Load** Load a job by typing its name
+    - **Create** Create a job by typing `!` followed by the job name
+    - **Delete** Delete a job by typing `@` followed by the job name
+- **Exit** Exit by typing `#`
 
 ---
 
