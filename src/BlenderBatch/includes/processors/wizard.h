@@ -18,7 +18,7 @@ void jobCreate(char jobName[], char blenderPath[])
     {
         char scriptArgs[1708];
 
-        printf("\n Blend File (type ! to exit):\n");
+        printf("\n Blend File (type ! to finish setup):\n");
         drawCur();
         char blendfile[512];
         fgets(blendfile, sizeof(blendfile), stdin);
