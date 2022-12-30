@@ -1,4 +1,4 @@
-~
+~ v1.0.2.0
 - Fixed line spacer while displaying render progress
 
 ~ v1.0.1.0
