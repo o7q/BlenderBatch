@@ -1,2 +1,5 @@
+~
+- Fixed line spacer while displaying render progress
+
 ~ v1.0.1.0
 - Fix typo

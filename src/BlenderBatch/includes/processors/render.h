@@ -36,7 +36,7 @@ void jobRender(char job[])
             if (fgets(chunkBuffer, sizeof(chunkBuffer), blenderPath_read) != NULL) strcpy(chunkScript, chunkBuffer);
             fclose(blenderPath_read);
 
-            printf(" STARTING RENDER OF JOB CHUNK #%d\n\n", chunkIndex);
+            printf("\n\n STARTING RENDER OF JOB CHUNK #%d\n\n", chunkIndex);
 
             system(chunkScript);
 
