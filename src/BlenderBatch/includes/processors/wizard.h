@@ -48,7 +48,7 @@ void jobCreate(char jobName[], char blenderPath[])
             fgets(eframe, sizeof(eframe), stdin);
             omitNewLine(eframe);
 
-            sprintf(scriptArgs, "%s%s%s%s%s%s%s%d%s", " -s ", sframe, " -e ", eframe, " -a /e | tee-object 'BlenderBatch\\_jobs\\", jobName, "\\job@log", jobIndex, ".txt'\"");
+            sprintf(scriptArgs, "%s%s%s%s%s%s%s%d%s", " -s ", sframe, " -e ", eframe, " -a /e | tee-object 'BlenderBatch\\_jobs\\", jobName, "\\job@chunk", jobIndex, ".log'\"");
         }
         else
         {
@@ -59,7 +59,7 @@ void jobCreate(char jobName[], char blenderPath[])
             fgets(frame, sizeof(frame), stdin);
             omitNewLine(frame);
 
-            sprintf(scriptArgs, "%s%s%s%s%s%d%s", " -f ", frame, " /e | tee-object 'BlenderBatch\\_jobs\\", jobName, "\\job@log", jobIndex, ".txt'\"");
+            sprintf(scriptArgs, "%s%s%s%s%s%d%s", " -f ", frame, " /e | tee-object 'BlenderBatch\\_jobs\\", jobName, "\\job@chunk", jobIndex, ".log'\"");
         }
 
         // configure job chunk content

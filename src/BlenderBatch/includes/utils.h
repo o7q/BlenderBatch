@@ -6,7 +6,7 @@
 #include <dirent.h>
 #include <stdbool.h>
 
-char version[] = "v1.0.2";
+char version[] = "v1.0.3";
 
 char *omitChar(char in[], char charIn)
 {
