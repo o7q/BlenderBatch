@@ -1,3 +1,6 @@
+~ v1.0.3.0
+- Update log system
+
 ~ v1.0.2.0
 - Fixed line spacer while displaying render progress
 
