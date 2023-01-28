@@ -1,3 +1,7 @@
+~ v1.1.0.0
+- You can now override the project render engine
+- Minor fixes
+
 ~ v1.0.3.0
 - Update log system
 
