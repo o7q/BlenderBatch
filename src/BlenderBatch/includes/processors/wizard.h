@@ -19,7 +19,7 @@ void jobCreate(char jobName[], char blenderPath[])
     int jobIndex = 0;
     while (1)
     {
-        char scriptArgs[1712];
+        char scriptArgs[1812];
 
         printf("\n Blend File%s:\n", displayFinish == 1 ? " (type ! to finish setup)" : "");
         drawCur();
@@ -30,7 +30,7 @@ void jobCreate(char jobName[], char blenderPath[])
         // exit if '!' is typed
         if (blendfile[0] == '!') return;
 
-        printf("\n Render Engine (cycles, eevee, workbench, povray):\n");
+        printf("\n Render Engine (cycles, eevee, workbench, povray, type ! to use project settings):\n");
         drawCur();
         char renderEngine[512];
         fgets(renderEngine, sizeof(renderEngine), stdin);
@@ -40,6 +40,9 @@ void jobCreate(char jobName[], char blenderPath[])
         if (strcmp(renderEngine, "eevee") == 0) sprintf(renderEngine, "%s", "BLENDER_EEVEE");
         if (strcmp(renderEngine, "workbench") == 0) sprintf(renderEngine, "%s", "BLENDER_WORKBENCH");
         if (strcmp(renderEngine, "povray") == 0) sprintf(renderEngine, "%s", "POVRAY_RENDER");
+
+        char engineManager[616];
+        if (renderEngine[0] != '!') sprintf(engineManager, "%s%s", " -E ", renderEngine);
 
         printf("\n Render As Sequence? (type y or n):\n");
         drawCur();
@@ -62,7 +65,7 @@ void jobCreate(char jobName[], char blenderPath[])
             fgets(eframe, sizeof(eframe), stdin);
             omitNewLine(eframe);
 
-            sprintf(scriptArgs, "%s%s%s%s%s%s%s%s%s%d%s", " -E ", renderEngine, " -s ", sframe, " -e ", eframe, " -a /e | tee-object 'BlenderBatch\\_jobs\\", jobName, "\\job@chunk", jobIndex, ".log'\"");
+            sprintf(scriptArgs, "%s%s%s%s%s%s%s%s%d%s", engineManager, " -s ", sframe, " -e ", eframe, " -a /e | tee-object 'BlenderBatch\\_jobs\\", jobName, "\\job@chunk", jobIndex, ".log'\"");
         }
         else
         {
@@ -73,11 +76,11 @@ void jobCreate(char jobName[], char blenderPath[])
             fgets(frame, sizeof(frame), stdin);
             omitNewLine(frame);
 
-            sprintf(scriptArgs, "%s%s%s%s%s%s%s%d%s", " -E ", renderEngine, " -f ", frame, " /e | tee-object 'BlenderBatch\\_jobs\\", jobName, "\\job@chunk", jobIndex, ".log'\"");
+            sprintf(scriptArgs, "%s%s%s%s%s%s%d%s", engineManager, " -f ", frame, " /e | tee-object 'BlenderBatch\\_jobs\\", jobName, "\\job@chunk", jobIndex, ".log'\"");
         }
 
         // configure job chunk content
-        char chunk_script[1837];
+        char chunk_script[1937];
         sprintf(chunk_script, "%s%s%s%s%s", "powershell -command \"", blenderPath, " -b ", fixPath(blendfile, '\''), scriptArgs);
 
         // configure job chunk export
