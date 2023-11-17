@@ -23,4 +23,4 @@ BlenderBatch queues up user-configured render jobs that can be executed with eas
 ---
 
 **BlenderBatch** \
-Written in C and compiled using MinGW GCC
+Written in C++ and compiled using MSBuild
