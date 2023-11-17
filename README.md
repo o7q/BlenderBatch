@@ -1,3 +1,5 @@
+### I'm currently remaking this program in C++ with more features! If you'd like to see the previous working version please [click here](https://github.com/o7q/BlenderBatch/tree/51b3762e4aeea4739a6d2d7dba6b55181e901cc8).
+
 <img src="assets/images/banner.png" style="width: 75%;">
 
 # [<b>>> Download Latest</b>](https://github.com/o7q/BlenderBatch/releases/download/v1.1.1.0/BlenderBatch.exe)
