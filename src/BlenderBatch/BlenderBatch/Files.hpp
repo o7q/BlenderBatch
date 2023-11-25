@@ -1,46 +1,65 @@
 #pragma once
 
 #include <iostream>
+#include <filesystem>
 #include <fstream>
 #include <sstream>
-#include <Windows.h>
 #include "Strings.hpp"
 
-using namespace std;
+namespace fs = std::filesystem;
 
-void CreateFolder(string directory);
-void WriteFile(string file, string content);
-string ReadFile(string file);
-bool CheckFile(string file);
+void CreateFolder(std::string folderPath);
+void RemoveFolder(std::string folderPath);
+std::string ReadFile(std::string file);
+bool CheckFile(std::string file);
 
-void CreateFolder(string directory)
+
+void CreateFolder(std::string folderPath)
 {
-    wstring wDirectory = StringToWide(directory);
-    CreateDirectory(wDirectory.c_str(), nullptr);
+	if (!fs::exists(folderPath))
+		fs::create_directory(folderPath);
 }
 
-void WriteFile(string file, string content)
+void RemoveFolder(std::string folderPath)
 {
-    ofstream f;
-    f.open(file);
-    f << content;
-    f.close();
+	try
+	{
+		if (fs::exists(folderPath)) {
+			// remove the directory and subdirectories
+			fs::remove_all(folderPath);
+			std::cout << "Folder and its contents deleted successfully." << std::endl;
+		}
+		else
+			std::cout << "Folder does not exist." << std::endl;
+	}
+	catch (const std::filesystem::filesystem_error& e)
+	{
+		std::cerr << "Error deleting folder: " << e.what() << std::endl;
+	}
 }
 
-string ReadFile(string file)
+void WriteFile(std::string file, std::string content)
 {
-    if (!CheckFile(file))
-        return "";
-    stringstream f;
-    f << ifstream(file).rdbuf();
-    return f.str();
+	std::ofstream f;
+	f.open(file);
+	f << content;
+	f.close();
 }
 
-bool CheckFile(string file)
+std::string ReadFile(std::string file)
 {
-    ifstream f;
-    f.open(file);
-    if (f)
-        return true;
-    return false;
+	if (!CheckFile(file))
+		return "";
+	std::stringstream f;
+	f << std::ifstream(file).rdbuf();
+	return f.str();
+}
+
+bool CheckFile(std::string file)
+{
+	std::ifstream f;
+	f.open(file);
+	if (f)
+		return true;
+	return false;
 }

@@ -1,21 +1,18 @@
 #pragma once
 
-#include <iostream>
 #include <algorithm>
 
-using namespace std;
+std::wstring StringToWide(std::string input);
+std::string RemoveCharacter(std::string input, char inputChar);
 
-wstring StringToWide(string input);
-string RemoveCharacter(string input, char inputChar);
-
-wstring StringToWide(string input)
+std::wstring StringToWide(std::string input)
 {
-    wstring wInput(input.begin(), input.end());
+    std::wstring wInput(input.begin(), input.end());
     return wInput;
 }
 
-string RemoveCharacter(string input, char inputChar)
+std::string RemoveCharacter(std::string input, char inputChar)
 {
-    input.erase(std::remove(input.begin(), input.end(), inputChar), input.end());
+    input.erase(remove(input.begin(), input.end(), inputChar), input.end());
     return input;
 }

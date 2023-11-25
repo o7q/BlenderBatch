@@ -16,6 +16,15 @@
     <Filter Include="Header Files\Tools">
       <UniqueIdentifier>{4670440b-78a9-4315-9c15-3a88780a9885}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Menus">
+      <UniqueIdentifier>{3b923794-1186-4ac3-809a-4151be151e55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Menus\MainMenu">
+      <UniqueIdentifier>{43908edd-158f-49ba-b146-bc4f89d81dd6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tasks">
+      <UniqueIdentifier>{c7323624-c0fd-4e0e-9999-021814fdf033}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -37,6 +46,12 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.hpp">
+      <Filter>Header Files\Menus\MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="CreateTask.hpp">
+      <Filter>Header Files\Tasks</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
