@@ -53,6 +53,9 @@
     <ClInclude Include="CreateTask.hpp">
       <Filter>Header Files\Tasks</Filter>
     </ClInclude>
+    <ClInclude Include="RunTask.hpp">
+      <Filter>Header Files\Tasks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="BlenderBatch.rc">

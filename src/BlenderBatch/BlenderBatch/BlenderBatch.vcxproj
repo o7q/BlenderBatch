@@ -144,6 +144,7 @@
     <ClInclude Include="Global.hpp" />
     <ClInclude Include="MainMenu.hpp" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="RunTask.hpp" />
     <ClInclude Include="Strings.hpp" />
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@
 #include "Draw.hpp"
 #include "Strings.hpp"
 #include "CreateTask.hpp"
+#include "RunTask.hpp"
 
 void InitMainMenu();
 
@@ -16,7 +17,7 @@ void InitMainMenu()
 	{
 		RefreshScreen();
 
-		std::cout << " Select a render job by typing its name or number\n - Create one by typing !<JOBNAME>\n - Delete one by typing @<JOB_NUMBER>\n - Type # to exit\n\n";
+		std::cout << " Select a render job by typing its number\n - Create one by typing !<JOB_NAME>\n - Delete one by typing @<JOB_NUMBER>\n - Type # to exit\n\n";
 
 		#pragma region ListTasks
 
@@ -56,9 +57,19 @@ void InitMainMenu()
 
 		if (select[0] == '!')
 			CreateTask(select.substr(1), blenderPath);
-		else if (select[0] == '@')
-			RemoveFolder("BlenderBatch\\tasks\\" + tasks[select[1] - '0' - 1]);
+		else if (select[0] == '@' && IsInteger(select.substr(1)))
+		{
+			int selectInt = std::stoi(select.substr(1));
+			if (selectInt > 0 && selectInt - 1 < tasks.size())
+				RemoveFolder("BlenderBatch\\tasks\\" + tasks[selectInt - 1]);
+		}
 		else if (select[0] == '#')
 			return;
+		else if (IsInteger(select))
+		{
+			int selectInt = std::stoi(select);
+			if (selectInt > 0 && selectInt - 1 < tasks.size())
+				StartRenderTask(tasks[selectInt - 1], blenderPath);
+		}
 	}
 }

@@ -1,26 +1,27 @@
 #pragma once
 
 #include <iostream>
-#include <filesystem>
+#include <string>
 #include <fstream>
 #include <sstream>
+#include <filesystem>
 #include "Strings.hpp"
 
 namespace fs = std::filesystem;
 
-void CreateFolder(std::string folderPath);
-void RemoveFolder(std::string folderPath);
-std::string ReadFile(std::string file);
-bool CheckFile(std::string file);
+void CreateFolder(const std::string& folderPath);
+void RemoveFolder(const std::string& folderPath);
+std::string ReadFile(const std::string& file);
+bool CheckFile(const std::string& file);
 
 
-void CreateFolder(std::string folderPath)
+void CreateFolder(const std::string& folderPath)
 {
 	if (!fs::exists(folderPath))
 		fs::create_directory(folderPath);
 }
 
-void RemoveFolder(std::string folderPath)
+void RemoveFolder(const std::string& folderPath)
 {
 	try
 	{
@@ -38,7 +39,7 @@ void RemoveFolder(std::string folderPath)
 	}
 }
 
-void WriteFile(std::string file, std::string content)
+void WriteFile(const std::string& file, const std::string& content)
 {
 	std::ofstream f;
 	f.open(file);
@@ -46,7 +47,7 @@ void WriteFile(std::string file, std::string content)
 	f.close();
 }
 
-std::string ReadFile(std::string file)
+std::string ReadFile(const std::string& file)
 {
 	if (!CheckFile(file))
 		return "";
@@ -55,7 +56,7 @@ std::string ReadFile(std::string file)
 	return f.str();
 }
 
-bool CheckFile(std::string file)
+bool CheckFile(const std::string& file)
 {
 	std::ifstream f;
 	f.open(file);
