@@ -1,13 +1,9 @@
 #pragma once
 
 #include <iostream>
-#include <algorithm>
+#include <string>
 #include <vector>
-
-std::wstring StringToWide(const std::string& input);
-std::string RemoveCharacter(std::string input, const char& inputChar);
-bool IsInteger(const std::string& input);
-std::vector<std::string> SplitString(const std::string& input);
+#include <algorithm>
 
 std::wstring StringToWide(const std::string& input)
 {
@@ -21,6 +17,17 @@ std::string RemoveCharacter(std::string input, const char& inputChar)
     return input;
 }
 
+std::vector<std::string> SplitString(const std::string& input, const char& splitCharacter)
+{
+    std::vector<std::string> result;
+    std::istringstream iss(input);
+    std::string token;
+
+    while (std::getline(iss, token, splitCharacter))
+        result.push_back(token);
+
+    return result;
+}
 
 bool IsInteger(const std::string& input)
 {
@@ -33,18 +40,4 @@ bool IsInteger(const std::string& input)
     {
         return false;
     }
-}
-
-std::vector<std::string> SplitString(const std::string& input, char splitCharacter)
-{
-    std::vector<std::string> result;
-    std::istringstream iss(input);
-    std::string token;
-
-    while (std::getline(iss, token, splitCharacter))
-    {
-        result.push_back(token);
-    }
-
-    return result;
 }

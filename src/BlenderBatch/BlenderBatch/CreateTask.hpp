@@ -1,11 +1,10 @@
 #pragma once
 
 #include <iostream>
+#include <string>
 #include "Draw.hpp"
 #include "Files.hpp"
 #include "Strings.hpp"
-
-void CreateTask(const std::string& taskName, const std::string& blenderPath);
 
 void CreateTask(const std::string& taskName, const std::string& blenderPath)
 {

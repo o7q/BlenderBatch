@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "Global.hpp"
 #include "Files.hpp"
 #include "Draw.hpp"

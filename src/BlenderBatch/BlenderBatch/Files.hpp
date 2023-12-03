@@ -9,12 +9,6 @@
 
 namespace fs = std::filesystem;
 
-void CreateFolder(const std::string& folderPath);
-void RemoveFolder(const std::string& folderPath);
-std::string ReadFile(const std::string& file);
-bool CheckFile(const std::string& file);
-
-
 void CreateFolder(const std::string& folderPath)
 {
 	if (!fs::exists(folderPath))
@@ -39,6 +33,15 @@ void RemoveFolder(const std::string& folderPath)
 	}
 }
 
+bool CheckFile(const std::string& file)
+{
+	std::ifstream f;
+	f.open(file);
+	if (f)
+		return true;
+	return false;
+}
+
 void WriteFile(const std::string& file, const std::string& content)
 {
 	std::ofstream f;
@@ -54,13 +57,4 @@ std::string ReadFile(const std::string& file)
 	std::stringstream f;
 	f << std::ifstream(file).rdbuf();
 	return f.str();
-}
-
-bool CheckFile(const std::string& file)
-{
-	std::ifstream f;
-	f.open(file);
-	if (f)
-		return true;
-	return false;
 }
